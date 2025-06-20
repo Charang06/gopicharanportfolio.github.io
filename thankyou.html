@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #00c6ff, #0072ff);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      color: white;
+      position: relative;
+    }
+
+    .message {
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+      z-index: 10;
+    }
+
+    .message h1 {
+      font-size: 3em;
+      animation: bounce 1.5s infinite alternate;
+    }
+
+    .message p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .loader {
+      margin-top: 30px;
+      width: 50px;
+      height: 50px;
+      border: 5px solid white;
+      border-top: 5px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0.2); opacity: 1; }
+      100% { transform: scale(2) translateY(-100px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <div class="message">
+    <h1 id="greeting">🎉 Thank You!</h1>
+    <p id="language-msg">Your message has been sent successfully. I’ll get back to you soon!</p>
+    <p>Redirecting to home page in 5 seconds...</p>
+    
+  </div>
+  
+
+  
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const lang = params.get('lang');
+    const musicOption = params.get('musicOption');
+    const greeting = document.getElementById('greeting');
+    const langMsg = document.getElementById('language-msg');
+    const bgMusic = document.getElementById('bg-music');
+
+    // Set name
+    if (name) {
+      greeting.innerText = `🎉 Thank You, ${name}!`;
+    }
+
+   
+    // Fireworks every 300ms
+    function launchFirework() {
+      const fw = document.createElement('div');
+      fw.className = 'firework';
+      fw.style.left = Math.random() * window.innerWidth + 'px';
+      fw.style.top = Math.random() * window.innerHeight + 'px';
+      fw.style.backgroundColor = ['#ff0', '#fff', '#f00', '#0f0', '#0ff'][Math.floor(Math.random() * 5)];
+      document.body.appendChild(fw);
+      setTimeout(() => fw.remove(), 1000);
+    }
+    
+
+    setInterval(launchFirework, 300);
+
+   setTimeout(() => {
+   window.location.href = 'index.html';
+   }, 5000); // 5 seconds instead of 10
+   
+
+  </script>
+
+</body>
+</html>
